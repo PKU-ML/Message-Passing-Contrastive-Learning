@@ -21,13 +21,13 @@ Model training consists of two steps: (1) self-supervised encoder pretraining an
 ### Self-supervised pretraining
 
 #### CIFAR-10
-The config `cifar_train_epochs200_bs512.yaml` contains the parameters to reproduce results for CIFAR-10 dataset. The pretraining command is:
+The config `cifar_train_epochs200_bs512.yaml` contains the parameters to reproduce results for CIFAR dataset. The pretraining command is:
 
 ```(bash)
 python train.py --config configs/cifar_train_epochs200_bs512.yaml
 ```
 
-#### ImageNet
+#### ImageNet-100
 The configs `imagenet_params_epochs100_bs512.yaml` contain the parameters to reproduce results for ImageNet-100 dataset. The single-node (4 v100 GPUs) pretraining command is:
 
 ```(bash)
@@ -54,19 +54,19 @@ To train a model with larger batch size on several nodes you need to set `--dist
 
 For example, to train with two nodes you need to run the following command on the main node:
 ```(bash)
-python train.py --config configs/cifar_train_epochs1000_bs1024.yaml --dist ddp --dist_address <address>:<port> --node_rank 0 --world_size 2
+python train.py --config configs/cifar_train_epochs200_bs512.yaml --dist ddp --dist_address <address>:<port> --node_rank 0 --world_size 2
 ```
 and on the second node:
 ```(bash)
-python train.py --config configs/cifar_train_epochs1000_bs1024.yaml --dist ddp --dist_address <address>:<port> --node_rank 1 --world_size 2
+python train.py --config configs/cifar_train_epochs200_bs512.yaml --dist ddp --dist_address <address>:<port> --node_rank 1 --world_size 2
 ```
 
 The ImageNet the pretaining on 4 nodes all with 4 GPUs looks as follows:
 ```
-node1: python train.py --config configs/imagenet_train_epochs200_bs2k.yaml --dist ddp --world_size 4 --dist_address <address>:<port> --node_rank 0
-node2: python train.py --config configs/imagenet_train_epochs200_bs2k.yaml --dist ddp --world_size 4 --dist_address <address>:<port> --node_rank 1
-node3: python train.py --config configs/imagenet_train_epochs200_bs2k.yaml --dist ddp --world_size 4 --dist_address <address>:<port> --node_rank 2
-node4: python train.py --config configs/imagenet_train_epochs200_bs2k.yaml --dist ddp --world_size 4 --dist_address <address>:<port> --node_rank 3
+node1: python train.py --config configs/imagenet_train_epochs100_bs512.yaml --dist ddp --world_size 4 --dist_address <address>:<port> --node_rank 0
+node2: python train.py --config configs/imagenet_train_epochs100_bs512.yaml --dist ddp --world_size 4 --dist_address <address>:<port> --node_rank 1
+node3: python train.py --config configs/imagenet_train_epochs100_bs512.yaml --dist ddp --world_size 4 --dist_address <address>:<port> --node_rank 2
+node4: python train.py --config configs/imagenet_train_epochs100_bs512.yaml --dist ddp --world_size 4 --dist_address <address>:<port> --node_rank 3
 ```
 
 
