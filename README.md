@@ -6,10 +6,12 @@ Multi-stage Graph Aggregation and Graph-Attention are two methods inspired by th
 
   
 
-| Backbone  | Method      | CIFAR-10 | CIFAR-100 | ImageNet-100 |
-|-----------|-------------|----------|-----------|--------------|
-| ResNet-18 | SimSiam    | 83.8  | 56.3     | 68.8     |
-|           | SimSiam-Multi| 84.8    | 58.9     | 70.5        |
+| Backbone  | Method        | CIFAR-10 | CIFAR-100 | ImageNet-100 |
+|-----------|---------------|:--------:|:---------:|:------------:|
+| ResNet-18 | SimSiam       |   83.8   |    56.3   |     68.8     |
+|           | SimSiam-Multi |   84.8   |    58.9   |     70.5     |
+| ResNet-50 | SimSiam       |   85.9   |    58.4   |     70.9     |
+|           | SimSiam-Multi |   87.0   |    59.8   |     72.3     |
 
 
 
@@ -74,7 +76,7 @@ The codes provide an online linear classifier. And the offline downstream linear
 Taking SimCLR on CIFAR-10 as an example, we pretrain the model with Graph-Attention technique with following commands
 
 ```
-python train.py --config configs/cifar_train_epochs200_bs256.yaml
+python train.py --config configs/cifar_train_epochs200_bs512.yaml
 ```
 
 And the downstream linear performance can be evaluated with
