@@ -17,7 +17,7 @@ from utils.lars_optimizer import LARS
 import scipy
 from torch.nn.parallel import DistributedDataParallel as DDP
 import torch.distributed as dist
-import hfai
+
 
 import copy
 
