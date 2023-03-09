@@ -428,7 +428,6 @@ class SSLEval(BaseSSL):
         )
         if iters is not None:
             trainsampler = datautils.ContinousSampler(trainsampler, iters)
-        '''
         train_loader = torch.utils.data.DataLoader(
             self.trainset,
             num_workers=self.hparams.workers,
@@ -442,18 +441,7 @@ class SSLEval(BaseSSL):
             sampler=testsampler,
             batch_size=self.hparams.test_bs,
         )
-        '''
-        train_loader = self.trainset.loader(
-            num_workers=self.hparams.workers,
-            pin_memory=True,
-            batch_sampler=trainsampler,
-        )
-        test_loader = self.testset.loader(
-            num_workers=self.hparams.workers,
-            pin_memory=True,
-            sampler=testsampler,
-            batch_size = self.hparams.test_bs
-        )
+
         return train_loader, test_loader
 
     def transforms(self):
