@@ -18,7 +18,6 @@ import scipy
 from torch.nn.parallel import DistributedDataParallel as DDP
 import torch.distributed as dist
 
-
 import copy
 
 class BaseSSL(nn.Module):
@@ -73,6 +72,7 @@ class BaseSSL(nn.Module):
         # print('The following train transform is used:\n', train_transform)
         # print('The following test transform is used:\n', test_transform)
         if self.hparams.data == 'cifar':
+            self.DATA_ROOT='.'
             self.trainset = datasets.CIFAR10(root=self.DATA_ROOT, train=True, download=True, transform=train_transform)
             self.testset = datasets.CIFAR10(root=self.DATA_ROOT, train=False, download=True, transform=test_transform)
         elif self.hparams.data == 'imagenet':
@@ -185,8 +185,10 @@ class SimCLR(BaseSSL):
 
     def step(self, batch,cur_iter=0,d_ratio=0):
         x, _ = batch
-        z = self.model(x)
-        loss, acc = self.criterion(z,z,cur_iter)
+        z,z2 = self.model(x)
+        if d_ratio==0:
+            z2=z
+        loss, acc = self.criterion(z,z2,cur_iter)
         return {
             'loss': loss,
             'contrast_acc': acc,
