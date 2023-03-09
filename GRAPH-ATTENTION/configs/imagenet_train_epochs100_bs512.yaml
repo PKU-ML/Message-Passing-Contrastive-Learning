@@ -30,3 +30,4 @@ warmup: 0.1
 weight_decay: 1.0e-06
 workers: 8
 world_size: 1
+d_ratio: 1
